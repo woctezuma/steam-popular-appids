@@ -38,8 +38,8 @@ def save_npy(data, fname):
     return
 
 
-def save_app_ids(app_ids):
-    save_json(data=app_ids, fname=get_data_folder_name() + "app_ids.json")
-    save_npy(data=app_ids, fname=get_data_folder_name() + "app_ids.npy")
+def save_app_ids(app_ids, fname_root="app_ids"):
+    save_json(data=app_ids, fname=get_data_folder_name() + f"{fname_root}.json")
+    save_npy(data=app_ids, fname=get_data_folder_name() + f"{fname_root}.npy")
 
     return
