@@ -2,7 +2,7 @@ from disk_utils import save_app_ids
 from download_utils import get_endpoints, fetch_from_every_endpoint
 
 
-def aggregate_top_app_ids(endpoints, rankings, num_apps=3000):
+def aggregate_top_app_ids(endpoints, rankings, num_apps=3000, save_to_disk=False):
     app_ids = set()
     for keyword in endpoints:
         top_ranking = rankings[keyword][:num_apps]
@@ -16,6 +16,9 @@ def aggregate_top_app_ids(endpoints, rankings, num_apps=3000):
     print("Total = {}".format(len(app_ids)))
 
     app_ids = list(sorted(app_ids))
+
+    if save_to_disk:
+        save_app_ids(app_ids)
 
     return app_ids
 
