@@ -1,5 +1,6 @@
 from disk_utils import save_app_ids
 from download_utils import get_endpoints, fetch_from_every_endpoint
+from fetch_snapshot_appids import load_snapshot_app_ids
 
 
 def aggregate_top_app_ids(endpoints, rankings, num_apps=3000, save_to_disk=False):
@@ -23,15 +24,28 @@ def aggregate_top_app_ids(endpoints, rankings, num_apps=3000, save_to_disk=False
     return app_ids
 
 
-def main():
+def load_aggregated_app_ids():
     endpoints = get_endpoints()
     rankings = fetch_from_every_endpoint(endpoints=endpoints, num_pages=50)
-    app_ids = aggregate_top_app_ids(
+    popular_app_ids = aggregate_top_app_ids(
         endpoints=endpoints,
         rankings=rankings,
         num_apps=3000,
         save_to_disk=False,
     )
+
+    return popular_app_ids
+
+
+def main():
+    popular_app_ids = load_aggregated_app_ids()
+
+    all_known_app_ids = load_snapshot_app_ids()
+    intersected_app_ids = set(all_known_app_ids).intersection(popular_app_ids)
+
+    print("After intersection: {} apps".format(len(intersected_app_ids)))
+
+    save_app_ids(list(intersected_app_ids), "intersected_app_ids")
 
     return
 
