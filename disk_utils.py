@@ -11,6 +11,10 @@ def get_json_file_name(endpoint, num_pages):
     return get_data_folder_name() + f"{endpoint}_{num_pages}.json"
 
 
+def get_snapshot_fname():
+    return get_data_folder_name() + "IStoreService.json"
+
+
 def load_json(fname):
     with open(fname, "r", encoding="utf8") as f:
         data = json.load(f)
