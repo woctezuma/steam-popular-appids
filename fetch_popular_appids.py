@@ -25,9 +25,13 @@ def aggregate_top_app_ids(endpoints, rankings, num_apps=3000, save_to_disk=False
 
 def main():
     endpoints = get_endpoints()
-    rankings = fetch_from_every_endpoint(endpoints=endpoints)
-    app_ids = aggregate_top_app_ids(endpoints=endpoints, rankings=rankings)
-    save_app_ids(app_ids)
+    rankings = fetch_from_every_endpoint(endpoints=endpoints, num_pages=50)
+    app_ids = aggregate_top_app_ids(
+        endpoints=endpoints,
+        rankings=rankings,
+        num_apps=3000,
+        save_to_disk=False,
+    )
 
     return
 
